@@ -11,7 +11,7 @@ Drop into a `nix-shell`, which will contain all the required dependencies.
 
 Tweak the invoice details in the `Makefile`, then run `make`. You'll get the resulting invoice inside `./invoices`.
 
-You can also override a single parameter by doing `make CLIENTCOMPANY="Jane Street"`
+You can also override parameters by doing `make CLIENTCOMPANY="Jane Street"`
 
 Invoices are labeled according to the invoice number, which gets automatically incremented based on what the latest invoice number is.
 
