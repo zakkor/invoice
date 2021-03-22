@@ -1,26 +1,3 @@
-INVOICESERIES ?= 
-INVOICENUMBER ?= $(shell ls invoices | cut -d- -f4 | cut -d. -f1 | cut -c2- | sort -r | head -n 1)
-$(eval INVOICENUMBER=$(shell echo $$(($(INVOICENUMBER)+1))))
-PROVIDERCOMPANY ?= 
-PROVIDERCIF ?= 
-PROVIDERREGCOM ?= 
-PROVIDERADDRESS ?= 
-PROVIDERCOUNTY ?= 
-PROVIDERIBAN ?= 
-PROVIDERBANK ?= 
-CLIENTCOMPANY ?= 
-CLIENTCIF ?= 
-CLIENTREGCOM ?= 
-CLIENTADDRESS ?= 
-CLIENTCOUNTRY ?= 
-CLIENTIBAN ?= 
-CLIENTBANK ?= 
-ITEMDESCRIPTION ?= 
-ITEMUNIT ?= 
-ITEMQTY ?= 
-ITEMUNITPRICEUSD ?= 
-# Fetch USD/RON currency conversion rate
-CURRENCYEXCHANGERATEUSD = $(shell curl -s https://www.bnr.ro/RSS_200004_USD.aspx | egrep -o '.*RON' | head -n 1 | egrep -o '([0-9]+\.[0-9]+)[ ]*RON$$' | egrep -o '([0-9]+\.[0-9]+)')
 
 default:
 	m4 \
@@ -43,10 +20,12 @@ default:
 		-DITEMDESCRIPTION='$(ITEMDESCRIPTION)' \
 		-DITEMUNIT='$(ITEMUNIT)' \
 		-DITEMQTY='$(ITEMQTY)' \
-		-DITEMUNITPRICEUSD='$(ITEMUNITPRICEUSD)' \
-		-DCURRENCYEXCHANGERATEUSD='$(CURRENCYEXCHANGERATEUSD)' \
+		-DITEMUNITPRICE='$(ITEMUNITPRICE)' \
+		-DCURRENCYSYMBOL='$(CURRENCYSYMBOL)' \
+		-DCURRENCYNAME='$(CURRENCYNAME)' \
+		-DCURRENCYEXCHANGERATE='$(CURRENCYEXCHANGERATE)' \
 			invoice.tex.m4 > invoice.tex
 	xelatex invoice.tex
 	mkdir -p ./invoices
-	mv ./invoice.pdf ./invoices/'$(shell date --iso-8601)-$(INVOICESERIES)$(INVOICENUMBER)'.pdf
+	mv ./invoice.pdf ./invoices/'$(shell date --iso-8601)_$(INVOICESERIES)$(INVOICENUMBER)'.pdf
 	

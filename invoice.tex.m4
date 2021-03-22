@@ -69,21 +69,21 @@ define(`BC', `syscmd(printf %.2f $(echo "print $1" | bc -l))')
   \vspace{1em}
   {\renewcommand{\arraystretch}{2.2}% for the vertical padding
   \begin{tabularx}{\textwidth}{ l X c c r r }
-    \textbf{\#} & \textbf{Denumire} & \textbf{U.M.} & \textbf{Cant.} & \textbf{Pret unitar (USD)} & \textbf{Valoare (USD)} \\
+    \textbf{\#} & \textbf{Denumire} & \textbf{U.M.} & \textbf{Cant.} & \textbf{Pret unitar} & \textbf{Valoare} \\
     \hline
-    1 & ITEMDESCRIPTION & ITEMUNIT & ITEMQTY & \$\,ITEMUNITPRICEUSD & \$\,BC(ITEMQTY*ITEMUNITPRICEUSD) \\
+    1 & ITEMDESCRIPTION & ITEMUNIT & ITEMQTY & CURRENCYSYMBOL\,ITEMUNITPRICE & CURRENCYSYMBOL\,BC(ITEMQTY*ITEMUNITPRICE) \\
     \hline
   \end{tabularx}}
   \par
   \vspace{0.4em}
   \begingroup
-    \footnotesize{Curs: \textbf{1 USD = CURRENCYEXCHANGERATEUSD Lei}}
+    \footnotesize{Curs: \textbf{1 CURRENCYNAME = CURRENCYEXCHANGERATE Lei}}
   \endgroup
   \hfill
   {\renewcommand{\arraystretch}{1.2}% for the vertical padding
   \begin{tabular}{ l r r }
-    \textbf{Total factură} & USD & \textbf{BC(ITEMQTY*ITEMUNITPRICEUSD)} \\
-    \ & Lei & \textbf{BC(ITEMQTY*ITEMUNITPRICEUSD*CURRENCYEXCHANGERATEUSD)}
+    \textbf{Total factură} & CURRENCYNAME & \textbf{BC(ITEMQTY*ITEMUNITPRICE)} \\
+    \ & Lei & \textbf{BC(ITEMQTY*ITEMUNITPRICE*CURRENCYEXCHANGERATE)}
   \end{tabular}}
   
 \end{document}

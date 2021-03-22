@@ -3,3 +3,6 @@
 *.pdf
 *.tex
 !sample/*.pdf
+*.fls
+*.fdb_latexmk
+Makefile.*
